@@ -1,9 +1,10 @@
 import './App.css';
+import logo from './logo.png'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import {Sky} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
-import { Box, Button, Center, HStack, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Center, HStack, Image, Stack, Text } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
 
 function App() {
@@ -40,6 +41,12 @@ function App() {
       <Stack w='100vw' h='100vh' bg='blackAlpha.800'>
         <HStack mt='10px' justifyContent='space-evenly'>
           <Stack alignSelf='start' w='18vw'>
+            <Stack >
+              <Box >
+                <Image w='18vw' src={logo} />
+              </Box>
+              <Text fontWeight='800' fontSize='2em' align='center' color='white'>Kimi kpp</Text>
+            </Stack>
             <Box bg='white' borderRadius='16px' h='10vh'>
               <Stack>
                 <Text fontWeight='600' fontSize='1em' align='center'>Form the molecule: </Text>
