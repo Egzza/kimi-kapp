@@ -6,6 +6,7 @@ import {Sky} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
 import { Box, Button, Center, HStack, Image, Stack, Text } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
+import Hydrogen from './components/Hydrogen'
 
 function App() {
 
@@ -69,6 +70,8 @@ function App() {
           <Box w='60vw' h='90vh' bg='white' borderRadius='16px'>
             <Canvas>
               {/*MOLECULE CANVAS*/}
+              <Hydrogen></Hydrogen>
+              <ambientLight></ambientLight>
             </Canvas>
           </Box>
           <Stack alignSelf='start' w='18vw'>
