@@ -2,7 +2,7 @@ import './App.css';
 import logo from './logo.png'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import {Sky} from '@react-three/drei'
+import {OrbitControls, Sky} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
 import { Box, Button, Center, HStack, Image, Stack, Text } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
@@ -72,6 +72,7 @@ function App() {
               {/*MOLECULE CANVAS*/}
               <Hydrogen></Hydrogen>
               <ambientLight></ambientLight>
+              <OrbitControls></OrbitControls>
             </Canvas>
           </Box>
           <Stack alignSelf='start' w='18vw'>
