@@ -2,11 +2,13 @@ import './App.css';
 import logo from './logo.png'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import {OrbitControls, Sky} from '@react-three/drei'
+import {OrbitControls, Sky, TransformControls} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
-import { Box, Button, Center, HStack, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Wrap, HStack, Image, Stack, Text } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
-import Hydrogen from './components/Hydrogen'
+import {elements} from './elementList/elementList'
+import Atom from './components/Atom'
+import AvailableAtom from './components/AvaliableAtom'
 
 function App() {
 
@@ -17,10 +19,11 @@ function App() {
   const [isMedium, setMedium] = useState(false)
   const [isHard, setHard] = useState(false)
 
-  
+  const [inCanvas, setInCanvas] = useState([])
 
   function newMolecule(){
-    setShowMolecule(false)
+    setShowMolecule(true)
+    setShowAnswer(false)
     let m
     // Get Molecule from predefined Array
     
@@ -37,6 +40,11 @@ function App() {
     setMolecule(m.notation)
   }
 
+  function addToCanvas(element){
+    const newInCanvas = inCanvas.concat(element)
+    setInCanvas(newInCanvas)
+  }
+
   return (
     <>
       <Stack w='100vw' h='100vh' bg='blackAlpha.800'>
@@ -48,31 +56,41 @@ function App() {
               </Box>
               <Text fontWeight='800' fontSize='2em' align='center' color='white'>Kimi kpp</Text>
             </Stack>
-            <Box bg='white' borderRadius='16px' h='10vh'>
-              <Stack>
-                <Text fontWeight='600' fontSize='1em' align='center'>Form the molecule: </Text>
-                <Text fontWeight='800' fontSize='2em' align='center'>{molecule}</Text>
-              </Stack>
-            </Box>
-            <Box  bg='white' borderRadius='16px'>
-              <Stack>
-                <Text fontWeight='600' fontSize='1em' align='center' >Answer:</Text>
-                <Box display={showAnswer}>
-                  <Canvas>
-                    {/*ANSWER CANVAS*/}
-                  </Canvas>
-                </Box>
-              </Stack>
-            </Box>
+            {showMolecule &&
+              <Box bg='white' borderRadius='16px' h='10vh'>
+                <Stack>
+                  <Text fontWeight='600' fontSize='1em' align='center'>Form the molecule: </Text>
+                  <Text fontWeight='800' fontSize='2em' align='center'>{molecule}</Text>
+                </Stack>
+              </Box>
+            }
+            {showAnswer &&
+              <Box  bg='white' borderRadius='16px'>
+                <Stack>
+                  <Text fontWeight='600' fontSize='1em' align='center' >Answer:</Text>
+                  <Box display={showAnswer}>
+                    <Canvas>
+                      {/*ANSWER CANVAS*/}
+                    </Canvas>
+                  </Box>
+                </Stack>
+              </Box>
+            }
             <Button onClick={()=>{setShowAnswer(true)}} >Show Answer</Button>
             <Button onClick={newMolecule} >New Molecule</Button>
           </Stack>
           <Box w='60vw' h='90vh' bg='white' borderRadius='16px'>
             <Canvas>
               {/*MOLECULE CANVAS*/}
-              <Hydrogen></Hydrogen>
-              <ambientLight></ambientLight>
-              <OrbitControls></OrbitControls>
+              
+              
+              {
+                inCanvas.map((element)=>(
+                  <Atom {...element} position={[1,0,0]} />
+                ))
+              }
+              
+              <ambientLight />
             </Canvas>
           </Box>
           <Stack alignSelf='start' w='18vw'>
@@ -80,6 +98,14 @@ function App() {
               {/*ATOM SELECTION*/}
               <Stack>
                 <Text  fontWeight='600' fontSize='1em' align='center' >Add an atom</Text>
+                <Wrap px='5%'>
+                  {
+                    elements.map((element)=>(
+                      <AvailableAtom {...element} handleClick={addToCanvas} />
+                    ))
+                  }
+
+                </Wrap>
               </Stack>
             </Box>
             <Box bg='white' borderRadius='16px' h='45vh'>
