@@ -1,56 +1,56 @@
 import React, {useState, useRef} from 'react'
 import { useFrame } from '@react-three/fiber'
 
-import { render } from 'react-dom'
-import * as THREE from 'three'
-import { Canvas } from 'react-three-fiber'
-import { Text } from '@react-three/drei'
+//import { render } from 'react-dom'
+//import * as THREE from 'three'
+import { Canvas, useThree } from 'react-three-fiber'
+import { Html } from '@react-three/drei'
+import {Text} from '@chakra-ui/react'
+import { useDrag } from '@use-gesture/react'
 
 const textProps = {
     fontSize: 3.9,
     font: 'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'
   }
 
-  function TitleCopies({ layers }) {
-    const vertices = useMemo(() => {
-      const y = new THREE.IcosahedronGeometry(12)
-      return y.vertices
-    }, [])
-  
-    return (
-      <group name="titleCopies">
-        {vertices.map((vertex, i) => (
-          <Title name={'titleCopy-' + i} position={vertex} layers={layers} />
-        ))}
-      </group>
-    )
-  }
-export default function Hydrogen(layers = undefined,props) {
+export default function Hydrogen(props) {
     // This reference will give us direct access to the THREE.Mesh object
     const mesh = useRef()
     useEffect(() => {
         mesh.current.lookAt(0, 0, 0)
       }, [])
     // Set up state for the hovered and active state
-    const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(false)
+    //const [hovered, setHover] = useState(false)
+    //const [active, setActive] = useState(false)
     // Subscribe this component to the render-loop, rotate the mesh every frame
-    useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
+    //useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
     // Return the view, these are regular Threejs elements expressed in JSX
+
+    const [position, setPosition] = useState([0, 0, 0]);
+    const { size, viewport } = useThree();
+    const aspect = size.width / viewport.width;
+    
+
+    const bind = useDrag(({ offset: [x, y] }) => {
+      const [,, z] = position;
+      setPosition([x / aspect, -y / aspect, z]);
+    }, { pointerEvents: true });
+
     return (
       <mesh
         {...props}
+        position = {position}
+        bind={bind}
         ref={mesh}
-        scale={active ? 1.5 : 1}
-        onClick={(event) => setActive(!active)}
-        onPointerOver={(event) => setHover(true)}
-        onPointerOut={(event) => setHover(false)}>
-        <Text depthTest={false} material-toneMapped={false} {...textProps} layers={layers}>
-         Hydrogen
-       </Text>
-       <TitleCopies/>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial color='navy'/>
+        >
+        <Html>
+          <Text fontWeight='600' fontSize='2em'>H</Text>
+        </Html>
+        <sphereGeometry attach='geometry' args={[1, 16, 16]} />
+        <meshStandardMaterial color={'skyblue'}
+        onPointerOver={e => console.log('hover')}
+        onPointerOut={e => console.log('unhover')}
+        />
       </mesh>
     )
   }
