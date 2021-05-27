@@ -4,11 +4,17 @@ import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import {OrbitControls, Sky, TransformControls} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
-import { Box, Button, Center, Wrap, HStack, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Wrap, HStack, Image, Stack, Text, color } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
 import {elements} from './elementList/elementList'
 import Atom from './components/Atom'
 import AvailableAtom from './components/AvaliableAtom'
+import StaticSingleBond from './components/StaticSingleBond'
+import StaticDoubleBond from './components/StaticDoubleBond'
+import StaticTripleBond from './components/StaticTripleBond'
+
+import Bond from './components/Bond'
+
 
 function App() {
 
@@ -19,11 +25,15 @@ function App() {
   const [isMedium, setMedium] = useState(false)
   const [isHard, setHard] = useState(false)
 
-  const [inCanvas, setInCanvas] = useState([])
+  const [inCanvasAtoms, setinCanvasAtoms] = useState([])
+  const [inCanvasBonds, setinCanvasBonds] = useState([])
 
   function newMolecule(){
     setShowMolecule(true)
     setShowAnswer(false)
+    setinCanvasAtoms([])
+    setinCanvasBonds([])
+
     let m
     // Get Molecule from predefined Array
     
@@ -40,9 +50,14 @@ function App() {
     setMolecule(m.notation)
   }
 
-  function addToCanvas(element){
-    const newInCanvas = inCanvas.concat(element)
-    setInCanvas(newInCanvas)
+  function addAtomToCanvas(element){
+    const newinCanvasAtoms = inCanvasAtoms.concat(element)
+    setinCanvasAtoms(newinCanvasAtoms)
+  }
+
+  function addBondToCanvas(bond){
+    const newinCanvasBonds = inCanvasBonds.concat(bond)
+    setinCanvasBonds(newinCanvasBonds)
   }
 
   return (
@@ -76,17 +91,22 @@ function App() {
                 </Stack>
               </Box>
             }
-            <Button onClick={()=>{setShowAnswer(true)}} >Show Answer</Button>
-            <Button onClick={newMolecule} >New Molecule</Button>
+            {showMolecule && <Button onClick={()=>{setShowAnswer(true)}} >Show Answer</Button>}
+            <Button onClick={newMolecule} bg='green.300' _hover={{bg:'green.400'}} >New Molecule</Button>
+            {showMolecule && <Button onClick={()=>{setinCanvasAtoms([]);setinCanvasBonds([])}} bg='red.300'  _hover={{bg:'red.400'}} >Reset</Button>}
           </Stack>
           <Box w='60vw' h='90vh' bg='white' borderRadius='16px'>
             <Canvas>
               {/*MOLECULE CANVAS*/}
               
-              
               {
-                inCanvas.map((element)=>(
+                inCanvasAtoms.map((element)=>(
                   <Atom {...element} position={[1,0,0]} />
+                ))
+              }
+              {
+                inCanvasBonds.map((bond)=>(
+                  <Bond bond={bond} />
                 ))
               }
               
@@ -101,7 +121,7 @@ function App() {
                 <Wrap px='5%'>
                   {
                     elements.map((element)=>(
-                      <AvailableAtom {...element} handleClick={addToCanvas} />
+                      <AvailableAtom {...element} handleClick={addAtomToCanvas} />
                     ))
                   }
 
@@ -112,14 +132,45 @@ function App() {
               {/*BOND SELECTION*/}
               <Stack>
                 <Text  fontWeight='600' fontSize='1em' align='center' >Add a bond</Text>
+                <Box px='10px'>
+                  <Stack>
+                    <Box onClick={()=>{addBondToCanvas({type:'s'})}} >
+                      <Box h='75px'>
+                        <Canvas>
+                          <ambientLight />
+                          <StaticSingleBond />
+                        </Canvas>
+                      </Box>
+                      <Text textAlign='center'>Single bond</Text>
+                    </Box>
+                    <Box onClick={()=>{addBondToCanvas({type:'d'})}} >
+                      <Box h='75px'>
+                        <Canvas>
+                          <ambientLight />
+                          <StaticDoubleBond />
+                        </Canvas>
+                      </Box>
+                      <Text textAlign='center'>Double bond</Text>
+                    </Box>
+                    <Box onClick={()=>{addBondToCanvas({type:'yeet'})}} >
+                      <Box h='75px'>
+                        <Canvas>
+                          <ambientLight />
+                          <StaticTripleBond />
+                        </Canvas>
+                      </Box>
+                      <Text textAlign='center'>Triple bond</Text>
+                    </Box>
+                  </Stack>
+                </Box>
               </Stack>
             </Box>
           </Stack>
         </HStack>
         <HStack justifyContent='center' spacing='32px' >
-          <Button onClick={()=>{setEasy(true);setMedium(false);setHard(false)}} >Easy</Button>
-          <Button onClick={()=>{setEasy(false);setMedium(true);setHard(false)}} >Medium</Button>
-          <Button onClick={()=>{setEasy(false);setMedium(false);setHard(true)}} >Hard</Button>
+          <Button onClick={()=>{setEasy(true);setMedium(false);setHard(false)}} isActive={isEasy} _active={{bg:'green.200'}} >Easy</Button>
+          <Button onClick={()=>{setEasy(false);setMedium(true);setHard(false)}} isActive={isMedium} _active={{bg:'yellow.200'}} >Medium</Button>
+          <Button onClick={()=>{setEasy(false);setMedium(false);setHard(true)}} isActive={isHard} _active={{bg:'red.200'}} >Hard</Button>
         </HStack>
       </Stack>
     </>

@@ -4,7 +4,7 @@ import {useDrag} from '@use-gesture/react'
 import { Html } from '@react-three/drei';
 import { Text } from '@chakra-ui/layout';
 
-export default function Atom(props) {
+export default function SingleBond(props) {
 
     const ref = useRef()
 
@@ -12,25 +12,26 @@ export default function Atom(props) {
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
 
+    useFrame(()=>{
+        ref.current.rotation.z = (90*Math.PI/180)
+    })
+
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         setPosition([x / aspect, -y / aspect, z]);
     });
-  
 
     return (
         <mesh
-            position = {position}
-            {...bind()}
-            ref = {ref}
+        position = {position}
+        ref = {ref}
+        {...bind()}
+        scale = '1  ' 
         >
 
-            <sphereGeometry attach='geometry' args={[1,32,32]} />
-            <meshStandardMaterial attach='material' color={props.color} />
-            <Html>
-                <Text fontSize='3em' fontWeight='600' userSelect={'none'}>{props.element}</Text>
-            </Html>
-            
+            <cylinderGeometry attach='geometry' args={[.3,.3,2,64]} />
+            <meshStandardMaterial attach='material' color={'yellow'} />
+        
         </mesh>
     )
 }
