@@ -31,22 +31,22 @@ const easyList=[
       shape: ''
     },
     {
-      notation: 'Cloroformo',
+      notation: 'CHCI3', //Cloroformo
       shape: ''
     }
   ]
 
   const hardList=[
     {
-      notation: 'Acido acetico',
+      notation: 'C2H402', // Acido acetico
       shape: ''
     },
     {
-      notation: 'Superfosfato de calcio',
+      notation: 'Ca(H2PO4)2', // Superfosfato de calcio
       shape: ''
     },
     {
-      notation: 'Nitroglicerina',
+      notation: 'C3H5N309', // Nitroglicerina
       shape: ''
     }
   ]
