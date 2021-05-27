@@ -26,6 +26,22 @@ const elements = [
     {
         element: 'Co',
         color: 'blue' 
+    },
+    {
+        element: 'Ca',
+        color: 'purple' 
+    },
+    {
+        element: 'Ox',
+        color: 'skyblue' 
+    },
+    {
+        element: 'Cloro',
+        color: 'orange' 
+    },
+    {
+        element: 'Fosforo',
+        color: 'green' 
     }
 ]
 
