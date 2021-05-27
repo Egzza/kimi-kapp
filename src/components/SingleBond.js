@@ -29,8 +29,8 @@ export default function SingleBond(props) {
         scale = '1  ' 
         >
 
-            <cylinderGeometry attach='geometry' args={[.3,.3,2,64]} />
-            <meshStandardMaterial attach='material' color={'yellow'} />
+            <cylinderGeometry attach='geometry' args={props.init} />
+            <meshStandardMaterial attach='material' color={props.color} />
         
         </mesh>
     )

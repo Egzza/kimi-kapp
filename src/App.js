@@ -46,7 +46,7 @@ function App() {
       } else {
         m = hardList[Math.floor(Math.random() * hardList.length)];
       }
-    } while (m.notation == molecule);
+    } while (m.notation == molecule.notation);
     
     setMolecule(m)
   }
@@ -159,11 +159,11 @@ function App() {
                       </Box>
                       <Text textAlign='center'>Double bond</Text>
                     </Box>
-                    <Box onClick={()=>{addBondToCanvas({type:'yeet'})}} >
+                    <Box onClick={()=>{addBondToCanvas({type:'t'})}} >
                       <Box h='75px'>
                         <Canvas>
                           <ambientLight />
-                          <StaticTripleBond />
+                          <StaticTripleBond /> 
                         </Canvas>
                       </Box>
                       <Text textAlign='center'>Triple bond</Text>

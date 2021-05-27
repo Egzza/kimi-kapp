@@ -6,63 +6,46 @@ import { Text } from '@chakra-ui/layout';
 
 export default function DoubleBond(props) {
 
-    const ref = useRef()
-    const ref2 = useRef()
+    const ref = useRef()    
 
-    
-    
-
-    const [position, setPosition] = useState([]);
-    const [position2, setPosition2] = useState([]);
+    const [position, setPosition] = useState([0,0,0]);
 
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
 
-    useEffect(() => {
-        const p = props.position
-        const p2 = [...p]
-        p2[1] = p2[1] + 1
-        setPosition(p)
-        setPosition2(p2)
-    }, [])
-
-    useFrame(()=>{
-        ref.current.rotation.z = (90*Math.PI/180)
-        ref2.current.rotation.z = (90*Math.PI/180)
-    })
     
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
-        const [,, z2] = position;
         
         setPosition([x / aspect, (-y-100) / aspect, z]);
-        setPosition2([x / aspect, -y / aspect, z2]);
     });
     
     
 
     return (
-        <group>
+        <group
+        ref = {ref}
+        {...bind()}
+        position={position}
+        >
             <mesh
-            position = {position}
-            ref = {ref}
-            {...bind()}
+            position = {[0,.15,0]}
             scale = '1' 
+            rotation={[0,0,(90*Math.PI/180)]}
             >
 
-                <cylinderGeometry attach='geometry' args={[.3,.3,2,64]} />
-                <meshStandardMaterial attach='material' color={'yellow'} />
+                <cylinderGeometry attach='geometry' args={props.init} />
+                <meshStandardMaterial attach='material' color={props.color} />
                 
             </mesh>
             <mesh
-                position = {position2}
-                ref = {ref2}
-                {...bind()}
+                position = {[0,-.15,0]}
                 scale = '1' 
+                rotation={[0,0,(90*Math.PI/180)]}
             >
 
-                <cylinderGeometry attach='geometry' args={[.3,.3,2,64]} />
-                <meshStandardMaterial attach='material' color={'red'} />
+                <cylinderGeometry attach='geometry' args={props.init} />
+                <meshStandardMaterial attach='material' color={props.color} />
                 
             </mesh>
         </group>

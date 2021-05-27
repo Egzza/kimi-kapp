@@ -1,30 +1,67 @@
-import { Canvas, useLoader } from '@react-three/fiber'
-import React, { useState, useEffect } from 'react'
-import {useGLTF} from '@react-three/drei'
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
+import React from 'react'
 
-//import h2o2 from './answerModels/h2o2.gltf'
-import co2 from './answerModels/co2.gltf'
-//import nh3 from './answerModels/nh3.gltf'
-//import ch4 from './answerModels/ch4.gltf'
+// EASY
+//import h2o from './answerModels/H2o'
+import Co2 from './answerModels/Co2'
+import Nh3 from './answerModels/Nh3'
+import Ch4 from './answerModels/Ch4'
 
+// MEDIUM
+import Hno3 from './answerModels/Hno3'
+import Caco3 from './answerModels/Caco3'
+import Agno3 from './answerModels/Agno3'
+import Cloroformo from './answerModels/Cloroformo'
+
+// HARD
+//import Acido from './answerModels/Acido'
+//import SuperF from './answerModels/SuperF'
+//import NitroG from './answerModels/NitroG'
 
 
 export default function Answer(props) {
 
-    function f() {
-        return co2
-    }
+        switch(props.notation){
+            
+            // EASY
 
-    let a
+            case 'H2O':
+                //return ( <H2o /> )
+                
+            case 'CO2':
+                return ( <Co2 /> )
+                
+            case 'NH3':
+                return ( <Nh3 /> )                
+                
+            case 'CH4':
+                return ( <Ch4 /> )
+            
+            // MEDIUM
 
-    useEffect(() => {
-        a = f()
-        console.log(a)
-    }, [])
-    const gltf = useLoader(GLTFLoader, a)
+            case 'HNO3':
+                return ( <Hno3 /> ) 
+                
+            case 'CaCO3':
+                return ( <Caco3 /> )
 
-    return (
-        <primitive object={gltf.scene} position={[0, 0, 0]} />
-    )
+            case 'AgNO3':
+                return ( <Agno3 /> )
+
+            case 'Cloroformo':
+                return ( <Cloroformo /> )
+            
+            // HARD
+
+            case 'Acido acetico':
+                //return ( <Acido /> ) 
+                
+            case 'Superfosfato de calcio':
+                //return ( <SuperF /> )
+
+            case 'Nitroglicerina':
+                //return ( <NitroG /> )
+            
+            default:
+                break
+        }
 }
