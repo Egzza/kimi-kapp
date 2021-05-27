@@ -1,7 +1,7 @@
 import React from 'react'
 
 // EASY
-import H2o from './answerModels/H2o'
+//import H2o from './answerModels/H2o'
 import Co2 from './answerModels/Co2'
 import Nh3 from './answerModels/Nh3'
 import Ch4 from './answerModels/Ch4'
@@ -19,13 +19,12 @@ import NitroG from './answerModels/Nitrog'
 
 
 export default function Answer(props) {
-
         switch(props.notation){
             
             // EASY
-
+            
             case 'H2O':
-                return ( <H2o /> )
+                //return ( <H2o /> )
                 
             case 'CO2':
                 return ( <Co2 /> )

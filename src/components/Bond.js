@@ -27,11 +27,11 @@ export default function Bond(props) {
     switch (props.bond.type){
         case 's':
             console.log('singleBond')
-            return(<SingleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} />)
+            return(<SingleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} enableMove={props.enableMove} />)
         case 'd':
             console.log('doubleBond')
 
-            return(<DoubleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} />)
+            return(<DoubleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} enableMove={props.enableMove} />)
         case 't':
             console.log('tripleBond')
 

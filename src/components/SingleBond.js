@@ -8,11 +8,6 @@ export default function SingleBond(props) {
 
     const ref = useRef()
 
-    let enableMove = false
-    
-    document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
-    document.addEventListener('keyup',()=>{enableMove=false})
-
     const [position, setPosition] = useState(props.position);
     const [rotation, setRotation] = useState([0,0,(90*Math.PI/180)]);
     const { size, viewport } = useThree();
@@ -22,13 +17,16 @@ export default function SingleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        if(enableMove){
-            setPosition([x / aspect, -y / aspect, z]);
-        }
+        setPosition([x / aspect, -y / aspect, z]);
+
     });
 
     return (
-        
+        <TransformControls 
+            showX={true} 
+            mode={'rotate'}
+            enabled={props.enableMove}
+        >
             <mesh
             position = {position}
             rotation = {rotation}
@@ -41,5 +39,6 @@ export default function SingleBond(props) {
                 <meshStandardMaterial attach='material' color={props.color} />
             
             </mesh>
+        </TransformControls>
     )
 }
