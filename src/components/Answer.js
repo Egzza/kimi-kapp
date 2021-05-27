@@ -1,7 +1,7 @@
 import React from 'react'
 
 // EASY
-//import h2o from './answerModels/H2o'
+import h2o from './answerModels/H2o'
 import Co2 from './answerModels/Co2'
 import Nh3 from './answerModels/Nh3'
 import Ch4 from './answerModels/Ch4'
@@ -13,9 +13,9 @@ import Agno3 from './answerModels/Agno3'
 import Cloroformo from './answerModels/Cloroformo'
 
 // HARD
-//import Acido from './answerModels/Acido'
-//import SuperF from './answerModels/SuperF'
-//import NitroG from './answerModels/NitroG'
+import Acido from './answerModels/Acido'
+import SuperF from './answerModels/Superf'
+import NitroG from './answerModels/Nitrog'
 
 
 export default function Answer(props) {
@@ -25,7 +25,7 @@ export default function Answer(props) {
             // EASY
 
             case 'H2O':
-                //return ( <H2o /> )
+                return ( <H2o /> )
                 
             case 'CO2':
                 return ( <Co2 /> )
@@ -53,13 +53,13 @@ export default function Answer(props) {
             // HARD
 
             case 'Acido acetico':
-                //return ( <Acido /> ) 
+                return ( <Acido /> ) 
                 
             case 'Superfosfato de calcio':
-                //return ( <SuperF /> )
+                return ( <SuperF /> )
 
             case 'Nitroglicerina':
-                //return ( <NitroG /> )
+                return ( <NitroG /> )
             
             default:
                 break

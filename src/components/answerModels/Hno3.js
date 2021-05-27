@@ -14,41 +14,42 @@ export default function Model(props) {
     <group ref={group} {...props} dispose={null}>
       <mesh
         geometry={nodes.Sphere.geometry}
-        material={materials.carbon}
-        position={[0.6, -2.93, 0.74]}
+        material={materials['carbon.001']}
+        position={[0.6, -2.93, 1.45]}
         scale={[-2.12, 4.66, 4.74]}
       />
       <mesh
         geometry={nodes.Cylinder.geometry}
         material={materials.bond}
-        position={[0.5, -2.56, 3.9]}
-        rotation={[1.57, 0, 0]}
+        position={[0.5, -4.78, 3.9]}
+        rotation={[2.09, 0, 0]}
         scale={[0.37, 2.01, 0.27]}
       />
       <mesh
         geometry={nodes.Cylinder001.geometry}
         material={materials['bond.001']}
-        position={[0.88, -0.46, -2.26]}
-        rotation={[-0.95, 0, 0]}
+        position={[0.88, 1.12, 0.88]}
+        rotation={[0.01, 0, 0]}
         scale={[0.37, 2.01, 0.27]}
       />
       <mesh
         geometry={nodes.Cylinder002.geometry}
         material={materials['bond.002']}
-        position={[0.57, -0.69, -7.43]}
-        rotation={[-2.27, 0, 0]}
+        position={[0.57, 1.15, 1.74]}
+        rotation={[0.04, 0, 0]}
         scale={[0.37, 2.01, 0.27]}
       />
       <mesh
         geometry={nodes.Sphere001.geometry}
         material={nodes.Sphere001.material}
-        position={[0.6, 1.34, -4.9]}
+        position={[0.6, 4.49, 1.37]}
+        rotation={[-0.01, -0.01, 0.12]}
         scale={[-1.18, 2.74, 2.7]}
       />
       <mesh
         geometry={nodes.Sphere002.geometry}
         material={nodes.Sphere002.material}
-        position={[0.6, -3.18, 7.07]}
+        position={[0.29, -6.07, 6.79]}
         scale={[-1.18, 2.74, 2.7]}
       />
       <mesh
@@ -56,19 +57,6 @@ export default function Model(props) {
         material={nodes.Sphere004.material}
         position={[0.63, -5.9, -4.45]}
         scale={[-1.18, 2.74, 2.7]}
-      />
-      <mesh
-        geometry={nodes.Cylinder003.geometry}
-        material={materials['bond.004']}
-        position={[0.57, -4.5, -7.2]}
-        rotation={[-0.99, 0, 0]}
-        scale={[0.37, 2.01, 0.27]}
-      />
-      <mesh
-        geometry={nodes.Sphere003.geometry}
-        material={materials.calcio}
-        position={[0.63, -2.94, -11.63]}
-        scale={[-2.68, 6.99, 6.62]}
       />
       <mesh
         geometry={nodes.Cylinder004.geometry}
@@ -80,9 +68,15 @@ export default function Model(props) {
       <mesh
         geometry={nodes.Cylinder005.geometry}
         material={materials['bond.007']}
-        position={[0.5, -3.57, 4.38]}
-        rotation={[1.57, 0, 0]}
+        position={[0.5, -4.38, 9.47]}
+        rotation={[0.88, 0, 0]}
         scale={[0.37, 2.01, 0.27]}
+      />
+      <mesh
+        geometry={nodes.Sphere003.geometry}
+        material={materials.hidrogeno}
+        position={[0.29, -2.75, 11.22]}
+        scale={[-1.18, 2.74, 2.7]}
       />
     </group>
   )

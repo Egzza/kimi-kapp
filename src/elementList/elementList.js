@@ -24,23 +24,19 @@ const elements = [
         color: 'yellow' 
     },
     {
-        element: 'Co',
-        color: 'blue' 
-    },
-    {
         element: 'Ca',
         color: 'purple' 
     },
     {
-        element: 'Ox',
+        element: 'O',
         color: 'skyblue' 
     },
     {
-        element: 'Cloro',
+        element: 'Cl',
         color: 'orange' 
     },
     {
-        element: 'Fosforo',
+        element: 'P',
         color: 'green' 
     }
 ]

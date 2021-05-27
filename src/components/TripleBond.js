@@ -6,9 +6,15 @@ import { Text } from '@chakra-ui/layout';
 
 export default function TripleBond(props) {
 
-    const ref = useRef()    
+    const ref = useRef()  
+    
+    let enableMove = false
+    
+    document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
+    document.addEventListener('keyup',()=>{enableMove=false})
 
     const [position, setPosition] = useState([0,0,0]);
+    const [rotation, setRotation] = useState([0,0,(90*Math.PI/180)]);
 
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
@@ -17,7 +23,9 @@ export default function TripleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        setPosition([x / aspect, (-y-100) / aspect, z]);
+        if(enableMove){
+            setPosition([x / aspect, -y / aspect, z]);
+        }
     });
     
     
@@ -27,11 +35,12 @@ export default function TripleBond(props) {
         ref = {ref}
         {...bind()}
         position={position}
+        rotation={rotation}
         >
             <mesh
-            position = {[0,.3,0]}
+            position = {[.3,0,0]}
             scale = '1' 
-            rotation={[0,0,(90*Math.PI/180)]}
+            rotation={[0,0,0]}
             >
 
                 <cylinderGeometry attach='geometry' args={props.init} />
@@ -41,7 +50,7 @@ export default function TripleBond(props) {
             <mesh
                 position = {[0,0,0]}
                 scale = '1' 
-                rotation={[0,0,(90*Math.PI/180)]}
+                rotation={[0,0,0]}
             >
 
                 <cylinderGeometry attach='geometry' args={props.init} />
@@ -49,9 +58,9 @@ export default function TripleBond(props) {
                 
             </mesh>
             <mesh
-                position = {[0,-.3,0]}
+                position = {[-.3,0,0]}
                 scale = '1' 
-                rotation={[0,0,(90*Math.PI/180)]}
+                rotation={[0,0,0]}
             >
 
                 <cylinderGeometry attach='geometry' args={props.init} />

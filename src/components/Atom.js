@@ -8,15 +8,23 @@ export default function Atom(props) {
 
     const ref = useRef()
 
+    //let enableMove = false
+    
+    //document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
+    //document.addEventListener('keyup',()=>{enableMove=false})
+
     const [position, setPosition] = useState(props.position);
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
 
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
-        setPosition([x / aspect, -y / aspect, z]);
+
+        if(props.enableMove){
+            setPosition([x / aspect, -y / aspect, z]);
+        }
     });
-  
+    
 
     return (
         <mesh

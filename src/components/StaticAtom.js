@@ -21,7 +21,7 @@ export default function Atom(props) {
             <sphereGeometry attach='geometry' args={[1,32,32]} />
             <meshStandardMaterial attach='material' color={props.color} />
             <Html>
-                <Text fontSize='1em' fontWeight='600' >{props.element}</Text>
+                <Text fontSize='1em' fontWeight='600' userSelect={'none'} >{props.element}</Text>
             </Html>
             
         </mesh>

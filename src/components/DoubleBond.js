@@ -8,7 +8,13 @@ export default function DoubleBond(props) {
 
     const ref = useRef()    
 
+    let enableMove = false
+    
+    document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
+    document.addEventListener('keyup',()=>{enableMove=false})
+
     const [position, setPosition] = useState([0,0,0]);
+    const [rotation, setRotation] = useState([0,0,(90*Math.PI/180)]);
 
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
@@ -17,7 +23,9 @@ export default function DoubleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        setPosition([x / aspect, (-y-100) / aspect, z]);
+        if(enableMove){
+            setPosition([x / aspect, -y / aspect, z]);
+        }
     });
     
     
@@ -27,11 +35,12 @@ export default function DoubleBond(props) {
         ref = {ref}
         {...bind()}
         position={position}
+        rotation={rotation}
         >
             <mesh
-            position = {[0,.15,0]}
+            position = {[.15,0,0]}
             scale = '1' 
-            rotation={[0,0,(90*Math.PI/180)]}
+            rotation={[0,0,0]}
             >
 
                 <cylinderGeometry attach='geometry' args={props.init} />
@@ -39,9 +48,9 @@ export default function DoubleBond(props) {
                 
             </mesh>
             <mesh
-                position = {[0,-.15,0]}
+                position = {[-.15,0,0]}
                 scale = '1' 
-                rotation={[0,0,(90*Math.PI/180)]}
+                rotation={[0,0,0]}
             >
 
                 <cylinderGeometry attach='geometry' args={props.init} />

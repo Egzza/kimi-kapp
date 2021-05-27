@@ -19,6 +19,13 @@ import Answer from './components/Answer'
 
 function App() {
 
+   //document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
+    //document.addEventListener('keyup',()=>{enableMove=false})
+  
+  const [enableMove, setEnableMove] = useState(false)
+  document.addEventListener('keydown', (e)=>{ setEnableMove((e.keyCode === 16) ? true : false) })  
+  document.addEventListener('keyup',()=>{ setEnableMove(false) })
+
   const [showMolecule, setShowMolecule] = useState(false)
   const [molecule,setMolecule] = useState({})
   const [showAnswer, setShowAnswer] = useState(false)
@@ -61,7 +68,6 @@ function App() {
     setinCanvasBonds(newinCanvasBonds)
   }
 
-
   return (
     <>
       <Stack w='100vw' h='100vh' bg='blackAlpha.800'>
@@ -71,27 +77,27 @@ function App() {
               <Box >
                 <Image w='18vw' src={logo} />
               </Box>
-              <Text fontWeight='800' fontSize='2em' align='center' color='white'>Kimi kpp</Text>
+              <Text fontWeight='800' fontSize='2em' align='center' color='white' userSelect={'none'} >Kimi kpp</Text>
             </Stack>
             {showMolecule &&
               <Box bg='white' borderRadius='16px' h='10vh'>
                 <Stack>
-                  <Text fontWeight='600' fontSize='1em' align='center'>Form the molecule: </Text>
-                  <Text fontWeight='800' fontSize='2em' align='center'>{molecule.notation}</Text>
+                  <Text fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Form the molecule: </Text>
+                  <Text fontWeight='800' fontSize='2em' align='center' userSelect={'none'} >{molecule.notation}</Text>
                 </Stack>
               </Box>
             }
             {showAnswer &&
               <Box  bg='white' borderRadius='16px'>
                 <Stack>
-                  <Text fontWeight='600' fontSize='1em' align='center' >Answer:</Text>
+                  <Text fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Answer:</Text>
                   <Box display={showAnswer}>
                     <Suspense fallback={null}>
                       <Canvas>
                         {/*ANSWER CANVAS*/}
                         <ambientLight />
                         <Answer {...molecule} />
-                        <OrbitControls  />
+                        <OrbitControls rotateSpeed={.2} panSpeed={.2} />
                       </Canvas>
                     </Suspense>
                   </Box>
@@ -102,71 +108,73 @@ function App() {
             <Button onClick={newMolecule} bg='green.300' _hover={{bg:'green.400'}} >New Molecule</Button>
             {showMolecule && <Button onClick={()=>{setinCanvasAtoms([]);setinCanvasBonds([])}} bg='red.300'  _hover={{bg:'red.400'}} >Reset</Button>}
           </Stack>
-          <Box w='60vw' h='90vh' bg='white' borderRadius='16px'>
-            <Canvas>
+          <Box w='60vw' h='90vh' bg='whiteAlpha.900' borderRadius='16px'>
+            <Canvas  >
               {/*MOLECULE CANVAS*/}
               
               {
                 inCanvasAtoms.map((element)=>(
-                  <Atom {...element} position={[1,0,0]} />
+                  <Atom key={element.notation} {...element} position={[1,0,0]} enableMove={enableMove} />
                 ))
               }
               {
                 inCanvasBonds.map((bond)=>(
-                  <Bond bond={bond} />
+                  <Bond key={bond.i} bond={bond} enableMove={enableMove} />
                 ))
               }
               
               <ambientLight />
+              <OrbitControls enableRotate={false} enablePan={false} />
             </Canvas>
+            {showAnswer && <Text mt='-80px' textAlign={'center'} fontWeight='600' fontSize='2em' >Does it look alike?   Try another molecule...</Text>}
           </Box>
           <Stack alignSelf='start' w='18vw'>
-            <Box bg='white' borderRadius='16px' h='45vh'>
+            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh'>
               {/*ATOM SELECTION*/}
               <Stack>
-                <Text  fontWeight='600' fontSize='1em' align='center' >Add an atom</Text>
+                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Add an atom</Text>
                 <Wrap px='5%'>
                   {
                     elements.map((element)=>(
-                      <AvailableAtom {...element} handleClick={addAtomToCanvas} />
+                      <AvailableAtom key={element.notation} {...element} handleClick={addAtomToCanvas} />
                     ))
                   }
 
                 </Wrap>
               </Stack>
             </Box>
-            <Box bg='white' borderRadius='16px' h='45vh'>
+            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh'>
               {/*BOND SELECTION*/}
               <Stack>
-                <Text  fontWeight='600' fontSize='1em' align='center' >Add a bond</Text>
+                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Add a bond</Text>
                 <Box px='10px'>
                   <Stack>
-                    <Box onClick={()=>{addBondToCanvas({type:'s'})}} >
+                    <Box onClick={()=>{addBondToCanvas({type:'s', i: inCanvasBonds.length})}} >
                       <Box h='75px'>
                         <Canvas>
                           <ambientLight />
                           <StaticSingleBond />
                         </Canvas>
                       </Box>
-                      <Text textAlign='center'>Single bond</Text>
+                      <Text textAlign='center' userSelect={'none'} >Single bond</Text>
                     </Box>
-                    <Box onClick={()=>{addBondToCanvas({type:'d'})}} >
+                    <Box onClick={()=>{addBondToCanvas({type:'d', i: inCanvasBonds.length})}} >
                       <Box h='75px'>
                         <Canvas>
                           <ambientLight />
                           <StaticDoubleBond />
                         </Canvas>
                       </Box>
-                      <Text textAlign='center'>Double bond</Text>
+                      <Text textAlign='center' userSelect={'none'} >Double bond</Text>
                     </Box>
-                    <Box onClick={()=>{addBondToCanvas({type:'t'})}} >
+                    <Box onClick={()=>{addBondToCanvas({type:'t',i: inCanvasBonds.length})}} >
                       <Box h='75px'>
                         <Canvas>
                           <ambientLight />
                           <StaticTripleBond /> 
                         </Canvas>
                       </Box>
-                      <Text textAlign='center'>Triple bond</Text>
+                      <Text textAlign='center' userSelect={'none'} >Triple bond</Text>
                     </Box>
                   </Stack>
                 </Box>
