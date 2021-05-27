@@ -16,6 +16,9 @@ const textProps = {
 export default function Hydrogen(props) {
     // This reference will give us direct access to the THREE.Mesh object
     const mesh = useRef()
+    useEffect(() => {
+        mesh.current.lookAt(0, 0, 0)
+      }, [])
     // Set up state for the hovered and active state
     //const [hovered, setHover] = useState(false)
     //const [active, setActive] = useState(false)
@@ -39,8 +42,6 @@ export default function Hydrogen(props) {
         position = {position}
         bind={bind}
         ref={mesh}
-        
-        
         >
         <Html>
           <Text fontWeight='600' fontSize='2em'>H</Text>
