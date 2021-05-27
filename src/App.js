@@ -90,8 +90,8 @@ function App() {
                       <Canvas>
                         {/*ANSWER CANVAS*/}
                         <ambientLight />
-                        <Answer model={molecule} />
-                        <OrbitControls />
+                        <Answer {...molecule} />
+                        <OrbitControls  />
                       </Canvas>
                     </Suspense>
                   </Box>
