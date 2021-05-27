@@ -1,8 +1,8 @@
 import './App.css';
 import logo from './logo.png'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useMemo, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import {OrbitControls, Sky, TransformControls} from '@react-three/drei'
+import {OrbitControls, Sky, TransformControls, Loader} from '@react-three/drei'
 import {default as BoxObj} from './components/Box'
 import { Box, Button, Center, Wrap, HStack, Image, Stack, Text, color } from '@chakra-ui/react';
 import {easyList, mediumList, hardList} from './moleculeLists/moleculeLists'
@@ -14,12 +14,13 @@ import StaticDoubleBond from './components/StaticDoubleBond'
 import StaticTripleBond from './components/StaticTripleBond'
 
 import Bond from './components/Bond'
+import Answer from './components/Answer'
 
 
 function App() {
 
   const [showMolecule, setShowMolecule] = useState(false)
-  const [molecule,setMolecule] = useState('')
+  const [molecule,setMolecule] = useState({})
   const [showAnswer, setShowAnswer] = useState(false)
   const [isEasy, setEasy] = useState(true)
   const [isMedium, setMedium] = useState(false)
@@ -47,7 +48,7 @@ function App() {
       }
     } while (m.notation == molecule);
     
-    setMolecule(m.notation)
+    setMolecule(m)
   }
 
   function addAtomToCanvas(element){
@@ -59,6 +60,7 @@ function App() {
     const newinCanvasBonds = inCanvasBonds.concat(bond)
     setinCanvasBonds(newinCanvasBonds)
   }
+
 
   return (
     <>
@@ -75,7 +77,7 @@ function App() {
               <Box bg='white' borderRadius='16px' h='10vh'>
                 <Stack>
                   <Text fontWeight='600' fontSize='1em' align='center'>Form the molecule: </Text>
-                  <Text fontWeight='800' fontSize='2em' align='center'>{molecule}</Text>
+                  <Text fontWeight='800' fontSize='2em' align='center'>{molecule.notation}</Text>
                 </Stack>
               </Box>
             }
@@ -84,9 +86,14 @@ function App() {
                 <Stack>
                   <Text fontWeight='600' fontSize='1em' align='center' >Answer:</Text>
                   <Box display={showAnswer}>
-                    <Canvas>
-                      {/*ANSWER CANVAS*/}
-                    </Canvas>
+                    <Suspense fallback={null}>
+                      <Canvas>
+                        {/*ANSWER CANVAS*/}
+                        <ambientLight />
+                        <Answer model={molecule} />
+                        <OrbitControls />
+                      </Canvas>
+                    </Suspense>
                   </Box>
                 </Stack>
               </Box>
