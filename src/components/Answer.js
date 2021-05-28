@@ -46,18 +46,18 @@ export default function Answer(props) {
             case 'AgNO3':
                 return ( <Agno3 /> )
 
-            case 'Cloroformo':
+            case 'CHCI3':
                 return ( <Cloroformo /> )
             
             // HARD
 
-            case 'Acido acetico':
+            case 'C2H402':
                 return ( <Acido /> ) 
                 
-            case 'Superfosfato de calcio':
+            case 'Ca(H2PO4)2':
                 return ( <SuperF /> )
 
-            case 'Nitroglicerina':
+            case 'C3H5N309':
                 return ( <NitroG /> )
             
             default:
