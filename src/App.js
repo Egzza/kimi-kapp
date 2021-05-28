@@ -107,8 +107,9 @@ function App() {
             {showMolecule && <Button onClick={()=>{setShowAnswer(true)}} >Show Answer</Button>}
             <Button onClick={newMolecule} bg='green.300' _hover={{bg:'green.400'}} >New Molecule</Button>
             {showMolecule && <Button onClick={()=>{setinCanvasAtoms([]);setinCanvasBonds([])}} bg='red.300'  _hover={{bg:'red.400'}} >Reset</Button>}
+            <Text style={{ color: 'white'}} fontWeight='300' fontSize='1em' align='center' userSelect={'none'} >Shift to rotate bonds</Text>
           </Stack>
-          <Box w='60vw' h='90vh' bg='whiteAlpha.900' borderRadius='16px'>
+          <Box w='60vw' h='90vh' bg='black' borderRadius='16px'>
             <Canvas  >
               {/*MOLECULE CANVAS*/}
               

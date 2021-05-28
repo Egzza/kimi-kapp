@@ -8,33 +8,28 @@ export default function Atom(props) {
 
     const ref = useRef()
 
-    //let enableMove = false
-    
-    //document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
-    //document.addEventListener('keyup',()=>{enableMove=false})
-
     const [position, setPosition] = useState(props.position);
     const { size, viewport } = useThree();
     const aspect = size.width / viewport.width;
 
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
-
-        if(props.enableMove){
-            setPosition([x / aspect, -y / aspect, z]);
-        }
+        setPosition([x / aspect, -y / aspect, z]);
     });
-    
+  
 
     return (
         <mesh
             position = {position}
             {...bind()}
-            ref = {ref}
+            ref = {ref} 
         >
 
             <sphereGeometry attach='geometry' args={[1,32,32]} />
-            <meshStandardMaterial attach='material' color={props.color} />
+            <meshPhongMaterial attach='material' color={props.color} />
+            <ambientLight intensity={0.5} />
+            <pointLight color="white" intensity={0.5} position={[0,0, 0]} />
+            
             <Html>
                 <Text fontSize='3em' fontWeight='600' userSelect={'none'}>{props.element}</Text>
             </Html>
