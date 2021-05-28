@@ -80,7 +80,7 @@ function App() {
               <Text fontWeight='800' fontSize='2em' align='center' color='white' userSelect={'none'} >Kimi kpp</Text>
             </Stack>
             {showMolecule &&
-              <Box bg='white' borderRadius='16px' h='10vh'>
+              <Box bg='white' borderRadius='16px' h='10vh' border='2px' borderColor='black' >
                 <Stack>
                   <Text fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Form the molecule: </Text>
                   <Text fontWeight='800' fontSize='2em' align='center' userSelect={'none'} >{molecule.notation}</Text>
@@ -88,7 +88,7 @@ function App() {
               </Box>
             }
             {showAnswer &&
-              <Box  bg='white' borderRadius='16px'>
+              <Box  bg='white' borderRadius='16px' border='2px' borderColor='black' >
                 <Stack>
                   <Text fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Answer:</Text>
                   <Box display={showAnswer}>
@@ -130,10 +130,10 @@ function App() {
             {showAnswer && <Text mt='-80px' textAlign={'center'} fontWeight='600' fontSize='2em' >Does it look alike?   Try another molecule...</Text>}
           </Box>
           <Stack alignSelf='start' w='18vw'>
-            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh'>
+            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh' border='2px' borderColor='black' >
               {/*ATOM SELECTION*/}
               <Stack>
-                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Add an atom</Text>
+                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} textDecoration='underline' textDecorationThickness='2px' textUnderlineOffset='5px' >Add an atom</Text>
                 <Wrap px='5%'>
                   {
                     elements.map((element)=>(
@@ -144,10 +144,10 @@ function App() {
                 </Wrap>
               </Stack>
             </Box>
-            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh'>
+            <Box bg='whiteAlpha.900' borderRadius='16px' h='45vh' border='2px' borderColor='black'>
               {/*BOND SELECTION*/}
               <Stack>
-                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} >Add a bond</Text>
+                <Text  fontWeight='600' fontSize='1em' align='center' userSelect={'none'} textDecoration='underline' textDecorationThickness='2px' textUnderlineOffset='5px' >Add a bond</Text>
                 <Box px='10px'>
                   <Stack>
                     <Box onClick={()=>{addBondToCanvas({type:'s', i: inCanvasBonds.length})}} >
@@ -157,7 +157,7 @@ function App() {
                           <StaticSingleBond />
                         </Canvas>
                       </Box>
-                      <Text textAlign='center' userSelect={'none'} >Single bond</Text>
+                      <Text textAlign='center' userSelect={'none'} fontWeight='600' >Single bond</Text>
                     </Box>
                     <Box onClick={()=>{addBondToCanvas({type:'d', i: inCanvasBonds.length})}} >
                       <Box h='75px'>
@@ -166,7 +166,7 @@ function App() {
                           <StaticDoubleBond />
                         </Canvas>
                       </Box>
-                      <Text textAlign='center' userSelect={'none'} >Double bond</Text>
+                      <Text textAlign='center' userSelect={'none'} fontWeight='600' >Double bond</Text>
                     </Box>
                     <Box onClick={()=>{addBondToCanvas({type:'t',i: inCanvasBonds.length})}} >
                       <Box h='75px'>
@@ -175,7 +175,7 @@ function App() {
                           <StaticTripleBond /> 
                         </Canvas>
                       </Box>
-                      <Text textAlign='center' userSelect={'none'} >Triple bond</Text>
+                      <Text textAlign='center' userSelect={'none'} fontWeight='600' >Triple bond</Text>
                     </Box>
                   </Stack>
                 </Box>
@@ -184,9 +184,9 @@ function App() {
           </Stack>
         </HStack>
         <HStack justifyContent='center' spacing='32px' >
-          <Button onClick={()=>{setEasy(true);setMedium(false);setHard(false)}} isActive={isEasy} _active={{bg:'green.200'}} >Easy</Button>
-          <Button onClick={()=>{setEasy(false);setMedium(true);setHard(false)}} isActive={isMedium} _active={{bg:'yellow.200'}} >Medium</Button>
-          <Button onClick={()=>{setEasy(false);setMedium(false);setHard(true)}} isActive={isHard} _active={{bg:'red.200'}} >Hard</Button>
+          <Button onClick={()=>{setEasy(true);setMedium(false);setHard(false)}} isActive={isEasy} _active={{bg:'green.200'}} border='2px' borderColor='black' >Easy</Button>
+          <Button onClick={()=>{setEasy(false);setMedium(true);setHard(false)}} isActive={isMedium} _active={{bg:'yellow.200'}} border='2px' borderColor='black' >Medium</Button>
+          <Button onClick={()=>{setEasy(false);setMedium(false);setHard(true)}} isActive={isHard} _active={{bg:'red.200'}} border='2px' borderColor='black' >Hard</Button>
         </HStack>
       </Stack>
     </>
