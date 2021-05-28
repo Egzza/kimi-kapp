@@ -18,24 +18,28 @@ export default function DoubleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        setPosition([x / aspect, -y / aspect, z]);
+        if(props.enableMove){
+            setPosition([x / aspect, -y / aspect, z]);
+        }
     });
     
     
 
     return (
         <TransformControls
-            showX={true} 
+            showX={false} 
+            showY={!props.enableMove}
+            showz={false}
             mode={'rotate'}
-            enabled={props.enableMove}
-            space={'local'}
+            enabled={!props.enableMove}
+            position={position}
+            rotation={rotation}
+            {...bind()}
+            ref = {ref}
         >
             <group
-                ref = {ref}
-                {...bind()}
-                position={position}
-                rotation={rotation}
-                rotateOnWorldAxis
+                position = {ref.position}
+                rotation = {ref.rotation}
             >
                 <mesh
                 position = {[.15,0,0]}

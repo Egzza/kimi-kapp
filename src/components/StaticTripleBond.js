@@ -32,7 +32,7 @@ export default function StaticTripleBond(props) {
             >
 
                 <cylinderGeometry attach='geometry' args={[.1,.1,2,64]} />
-                <meshStandardMaterial attach='material' color={'yellow'} />
+                <meshStandardMaterial attach='material' color={'gray'} />
                 
             </mesh>
             <mesh
@@ -41,7 +41,7 @@ export default function StaticTripleBond(props) {
             >
 
                 <cylinderGeometry attach='geometry' args={[.1,.1,2,64]} />
-                <meshStandardMaterial attach='material' color={'yellow'} />
+                <meshStandardMaterial attach='material' color={'gray'} />
                 
             </mesh>
             <mesh
@@ -50,7 +50,7 @@ export default function StaticTripleBond(props) {
             >
 
                 <cylinderGeometry attach='geometry' args={[.1,.1,2,64]} />
-                <meshStandardMaterial attach='material' color={'yellow'} />
+                <meshStandardMaterial attach='material' color={'gray'} />
                 
             </mesh>
         </group>

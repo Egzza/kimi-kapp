@@ -35,7 +35,7 @@ export default function Bond(props) {
         case 't':
             console.log('tripleBond')
 
-            return(<TripleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} />)
+            return(<TripleBond position={[0,0,0]} init={[.1,.1,2,64]} color={bondColor} enableMove={props.enableMove} />)
         case 'yeet':
             return(<Yeet />)
     }

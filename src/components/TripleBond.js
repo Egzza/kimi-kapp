@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {useFrame, useThree} from 'react-three-fiber'
 import {useDrag} from '@use-gesture/react'
-import { Html } from '@react-three/drei';
+import { Html, TransformControls } from '@react-three/drei';
 import { Text } from '@chakra-ui/layout';
 
 export default function TripleBond(props) {
@@ -23,7 +23,7 @@ export default function TripleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        if(enableMove){
+        if(props.enableMove){
             setPosition([x / aspect, -y / aspect, z]);
         }
     });
@@ -31,42 +31,53 @@ export default function TripleBond(props) {
     
 
     return (
-        <group
-        ref = {ref}
-        {...bind()}
-        position={position}
-        rotation={rotation}
+        <TransformControls
+            showX={false} 
+            showY={!props.enableMove}
+            showz={false}
+            mode={'rotate'}
+            enabled={!props.enableMove}
+            position={position}
+            rotation={rotation}
+            {...bind()}
+            ref = {ref}
         >
-            <mesh
-            position = {[.3,0,0]}
-            scale = '1' 
-            rotation={[0,0,0]}
+            <group
+            position = {ref.position}
+            rotation = {ref.rotation}
             >
-
-                <cylinderGeometry attach='geometry' args={props.init} />
-                <meshStandardMaterial attach='material' color={props.color} />
-                
-            </mesh>
-            <mesh
-                position = {[0,0,0]}
+                <mesh
+                position = {[.3,0,0]}
                 scale = '1' 
                 rotation={[0,0,0]}
-            >
+                >
 
-                <cylinderGeometry attach='geometry' args={props.init} />
-                <meshStandardMaterial attach='material' color={props.color} />
-                
-            </mesh>
-            <mesh
-                position = {[-.3,0,0]}
-                scale = '1' 
-                rotation={[0,0,0]}
-            >
+                    <cylinderGeometry attach='geometry' args={props.init} />
+                    <meshStandardMaterial attach='material' color={props.color} />
+                    
+                </mesh>
+                <mesh
+                    position = {[0,0,0]}
+                    scale = '1' 
+                    rotation={[0,0,0]}
+                >
 
-                <cylinderGeometry attach='geometry' args={props.init} />
-                <meshStandardMaterial attach='material' color={props.color} />
-                
-            </mesh>
-        </group>
+                    <cylinderGeometry attach='geometry' args={props.init} />
+                    <meshStandardMaterial attach='material' color={props.color} />
+                    
+                </mesh>
+                <mesh
+                    position = {[-.3,0,0]}
+                    scale = '1' 
+                    rotation={[0,0,0]}
+                >
+
+                    <cylinderGeometry attach='geometry' args={props.init} />
+                    <meshStandardMaterial attach='material' color={props.color} />
+                    
+                </mesh>
+            </group>
+
+        </TransformControls>
     )
 }

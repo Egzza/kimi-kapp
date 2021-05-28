@@ -17,21 +17,26 @@ export default function SingleBond(props) {
     const bind = useDrag(({ offset: [x, y] }) => {
         const [,, z] = position;
         
-        setPosition([x / aspect, -y / aspect, z]);
-
+        if(props.enableMove){
+            setPosition([x / aspect, -y / aspect, z]);
+        }
     });
 
     return (
         <TransformControls 
-            showX={true} 
+            showX={false} 
+            showY={!props.enableMove}
+            showz={false}
             mode={'rotate'}
-            enabled={props.enableMove}
+            enabled={!props.enableMove}
+            position={position}
+            rotation={rotation}
+            {...bind()}
+            ref = {ref}
         >
             <mesh
-            position = {position}
-            rotation = {rotation}
-            ref = {ref}
-            {...bind()}
+            position = {ref.position}
+            rotation = {ref.rotation}
             scale = '1  ' 
             >
 

@@ -22,9 +22,9 @@ function App() {
    //document.addEventListener('keydown', (e)=>{enableMove = (e.keyCode === 16) ? true : false})
     //document.addEventListener('keyup',()=>{enableMove=false})
   
-  const [enableMove, setEnableMove] = useState(false)
-  document.addEventListener('keydown', (e)=>{ setEnableMove((e.keyCode === 16) ? true : false) })  
-  document.addEventListener('keyup',()=>{ setEnableMove(false) })
+  const [enableMove, setEnableMove] = useState(true)
+  document.addEventListener('keydown', (e)=>{ setEnableMove((e.keyCode === 16) ? false : true) })  
+  document.addEventListener('keyup',()=>{ setEnableMove(true) })
 
   const [showMolecule, setShowMolecule] = useState(false)
   const [molecule,setMolecule] = useState({})

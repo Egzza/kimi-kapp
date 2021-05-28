@@ -20,11 +20,11 @@ export default function StaticSingleBond(props) {
         <mesh
             position = {position}
             ref = {ref}
-            scale = '3' 
+            scale = '4' 
         >
 
-            <cylinderGeometry attach='geometry' args={[.5,.5,2,64]} />
-            <meshStandardMaterial attach='material' color={'yellow'} />
+            <cylinderGeometry attach='geometry' args={[.1,.1,2,64]} />
+            <meshStandardMaterial attach='material' color={'gray'} />
             
         </mesh>
     )

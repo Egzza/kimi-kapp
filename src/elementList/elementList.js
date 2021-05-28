@@ -12,7 +12,7 @@ const elements = [
         color: 'lime' 
     },
     {
-        element: 'Ni',
+        element: 'N',
         color: 'brown' 
     },
     {
