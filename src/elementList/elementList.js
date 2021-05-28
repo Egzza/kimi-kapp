@@ -16,7 +16,7 @@ const elements = [
         color: 'brown' 
     },
     {
-        element: 'He',
+        element: 'S',
         color: 'gray' 
     },
     {
